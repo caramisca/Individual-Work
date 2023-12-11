@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 void drawHangman(int attempt, int winner) {
     setcolor(WHITE);
@@ -59,8 +58,6 @@ void removeChar(char* str, char c) {
 	}
         
         str[j] = '\0';
-        
-    
 }
 
 void drawProgress(char hangmanOutput[100]){
@@ -136,7 +133,12 @@ int playGame(const char* hangmanWord) {
         fflush(stdin);
         char alphabetFromUser;
         scanf(" %c", &alphabetFromUser);
-        removeChar(availableLetters, alphabetFromUser);
+        
+        for (int i = 0; i < strlen(availableLetters); i++){
+        	if (availableLetters[i] == alphabetFromUser)
+				removeChar(availableLetters, alphabetFromUser);	
+		}
+		
 
     	cleardevice();
         drawHangman(attempt, winner);
@@ -280,42 +282,42 @@ void MultiplayerGame(int attempt) {
 }
 
 int main() {
-	srand(time(0));
+	unsigned seed = (unsigned int)(GetCurrentProcessId());
+	srand(seed);
     while (1) {
         system("cls");
-
         int choice;
         printf("\033[0;33m                              HANGMAN GAME                             \033[0m\n");
         printf("What mode would you like to play?(1 for singleplayer/2 for multiplayer)\n");
         choice = _getch();
         switch (choice) {
-        case 49: {
-            int gd = DETECT, gm;
-            initgraph(&gd, &gm, " ");
-            int attempt = 0;
-            SingleplayerGame(attempt);
-            closegraph();
-            break;
-        }
-        case 50: {
-            int gd = DETECT, gm;
-            initgraph(&gd, &gm, " ");
-            int attempt = 0;
-            MultiplayerGame(0);
-            closegraph();
-            break;
-        }
-        case 27: {
-            closegraph();
-            return 0;
-            break;
-        }
-        default: {
-            system("cls");
-            printf("\n\033[0;31m Wrong Input\033[0m");
-            _getch();
-            break;
-        }
+	        case 49: {
+	            int gd = DETECT, gm;
+	            initgraph(&gd, &gm, " ");
+	            int attempt = 0;
+	            SingleplayerGame(attempt);
+	            closegraph();
+	            break;
+	        }
+	        case 50: {
+	            int gd = DETECT, gm;
+	            initgraph(&gd, &gm, " ");
+	            int attempt = 0;
+	            MultiplayerGame(0);
+	            closegraph();
+	            break;
+	        }
+	        case 27: {
+	            closegraph();
+	            return 0;
+	            break;
+	        }
+	        default: {
+	            system("cls");
+	            printf("\n\033[0;31m Wrong Input\033[0m");
+	            _getch();
+	            break;
+	        }
         }
     }
 }
