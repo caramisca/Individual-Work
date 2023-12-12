@@ -129,8 +129,7 @@ int playGame(const char* hangmanWord) {
         printf(" Enter any letter from a to z using small case!!");
         printf("\n\n Number of errors: %d", attempt);
         printf("\n\n Current Progress: %s", hangmanOutput);
-        printf("\n\n Enter HERE ==> ");
-        fflush(stdin);
+        printf("\n\n Enter HERE ==> ");
         char alphabetFromUser;
         scanf(" %c", &alphabetFromUser);
         
